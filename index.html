@@ -413,11 +413,16 @@ body {
     text-shadow: 0 0 3px rgba(157,168,117,.5);
 }
 
+
+/* =========================================
+   BIGGER TUNER NUMBERS
+========================================= */
+
 .scale {
     flex: 1;
     min-width: 0;
 
-    height: 7px;
+    height: 9px;
 
     display: flex;
 
@@ -426,10 +431,10 @@ body {
 
     color: #8f996d;
 
-    font-size: 2.8px;
-    line-height: 2.8px;
+    font-size: 5px;
+    line-height: 5px;
 
-    letter-spacing: -0.2px;
+    letter-spacing: -0.1px;
 
     position: relative;
     z-index: 6;
@@ -851,6 +856,11 @@ body {
     .volume {
         height: 7px;
     }
+
+    .scale {
+        font-size: 4.5px;
+        line-height: 4.5px;
+    }
 }
 
 </style>
@@ -996,8 +1006,6 @@ body {
                         viewBox="0 0 24 24"
                         aria-hidden="true">
 
-                        <!-- Single bold solid note -->
-
                         <path
                             d="
                                 M15 3
@@ -1048,8 +1056,6 @@ body {
                         viewBox="0 0 24 24"
                         aria-hidden="true">
 
-                        <!-- Mug body -->
-
                         <path
                             d="
                                 M5 9
@@ -1063,8 +1069,6 @@ body {
                             fill="none"
                         />
 
-                        <!-- Handle -->
-
                         <path
                             d="
                                 M16 11
@@ -1074,8 +1078,6 @@ body {
                             "
                             fill="none"
                         />
-
-                        <!-- Steam -->
 
                         <path
                             d="
@@ -1129,8 +1131,6 @@ body {
                         viewBox="0 0 24 24"
                         aria-hidden="true">
 
-                        <!-- Cloud -->
-
                         <path
                             d="
                                 M6 15.5
@@ -1145,8 +1145,6 @@ body {
                             "
                             fill="none"
                         />
-
-                        <!-- Raindrops -->
 
                         <path
                             d="
@@ -1220,8 +1218,6 @@ body {
                         viewBox="0 0 24 24"
                         aria-hidden="true">
 
-                        <!-- Speech bubble -->
-
                         <path
                             d="
                                 M5 4.5
@@ -1240,8 +1236,6 @@ body {
                             "
                             fill="none"
                         />
-
-                        <!-- Three dots -->
 
                         <circle
                             cx="8"
@@ -1295,8 +1289,6 @@ body {
                     onclick="toggleSound('stirring', this)"
                     title="Stirring"
                     aria-label="Stirring">
-
-                    <!-- Spoon: oval bowl + straight handle -->
 
                     <svg
                         viewBox="0 0 24 24"
@@ -1365,7 +1357,7 @@ body {
     preload="auto">
 
     <source
-        src="https://github.com/ameerhadaelo-design/Notion-music-widget/raw/refs/heads/main/quiet-motif-piano-coffee-shop-lo-fi-SBA-346967624-preview%20(1).mp3"
+        src="https://github.com/ameerhadaelo-design/Notion-music-widget/raw/refs/heads/main/alex-morgan-chillhop-jazz-coffee-shop-552792.mp3"
         type="audio/mpeg">
 
 </audio>
@@ -1468,26 +1460,12 @@ function createTicks(
 }
 
 
-/*
-   FM has 6 labels (88-108), so
-   40 ticks split into 5 equal
-   sections puts a major tick
-   exactly under every label.
-*/
-
 createTicks(
     "fmTicks",
     41,
     8
 );
 
-
-/*
-   AM has 8 labels, so 70 ticks
-   split into 7 equal sections
-   puts a major tick exactly
-   under every label.
-*/
 
 createTicks(
     "amTicks",
@@ -1569,11 +1547,12 @@ function toggleSound(
                 );
 
             })
-            .catch(() => {
+            .catch((error) => {
 
                 console.log(
-                    "Browser blocked audio playback:",
-                    name
+                    "Audio could not be played:",
+                    name,
+                    error
                 );
 
             });
