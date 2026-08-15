@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vintage Lo-Fi Radio</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================
+   RADIO BODY
+========================================= */
+
+.radio {
+    width: min(900px, 94vw);
+    aspect-ratio: 16 / 9;
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #684027,
+            #4b2a19 48%,
+            #352012
+        );
+
+    border: 3px solid #241209;
+    border-radius: 10px;
+
+    box-shadow:
+        0 12px 25px rgba(0,0,0,.42),
+        inset 0 2px rgba(220,170,105,.18),
+        inset 0 -4px rgba(0,0,0,.5);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    height: 16px;
+    flex-shrink: 0;
+
+    padding: 0 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #c2a078;
+
+    font-size: 6px;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.power {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 5px;
+    letter-spacing: 1px;
+}
+
+.power-light {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #698d57;
+
+    box-shadow:
+        0 0 5px rgba(105,141,87,.7);
+
+    animation: powerPulse 3s ease-in-out infinite;
+}
+
+@keyframes powerPulse {
+    0%, 100% {
+        opacity: .55;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================
+   IMAGE FRAME
+========================================= */
+
+.speaker-frame {
+    flex: 1;
+    min-height: 0;
+
+    margin-top: 2px;
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            #382015,
+            #1b0e08
+        );
+
+    border: 2px solid #79502e;
+    border-radius: 6px;
+
+    box-shadow:
+        inset 0 1px #a06b3d,
+        inset 0 -2px #0d0603,
+        0 3px 5px rgba(0,0,0,.45);
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.speaker {
+    flex: 1;
+    min-height: 0;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 2px solid #140a05;
+    border-radius: 3px;
+
+    background: #24160e;
+}
+
+.cafe-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-image:
+        url("https://cdn.phototourl.com/free/2026-08-14-e8f2d4c6-c64e-4696-993e-47b293ec9c8a.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    filter:
+        brightness(.84)
+        saturate(.82);
+}
+
+.speaker::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    opacity: .09;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 5px,
+            #d0aa77 6px
+        ),
+
+        repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 5px,
+            #d0aa77 6px
+        );
+}
+
+.speaker::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.09),
+            transparent 28%
+        );
+}
+
+
+/* =========================================
+   TUNER
+========================================= */
+
+.tuner {
+    height: 44px;
+    flex-shrink: 0;
+
+    margin-top: 4px;
+    padding: 4px 6px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    background:
+        linear-gradient(
+            #1a100a,
+            #0b0603
+        );
+
+    border-top: 2px solid #79502d;
+    border-bottom: 2px solid #603c22;
+
+    box-shadow:
+        inset 0 2px rgba(255,255,255,.04),
+        inset 0 -2px rgba(0,0,0,.8);
+}
+
+
+/* =========================================
+   KNOBS
+========================================= */
+
+.knob {
+    width: 26px;
+    height: 26px;
+
+    flex: 0 0 26px;
+
+    position: relative;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 38% 32%,
+            #dfc29a,
+            #ae824f 28%,
+            #6b482a 55%,
+            #29170c 100%
+        );
+
+    border: 2px solid #17100a;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.3),
+        0 2px 3px rgba(0,0,0,.75);
+}
+
+.knob::after {
+    content: "";
+
+    position: absolute;
+
+    top: 4px;
+    left: 50%;
+
+    width: 2px;
+    height: 8px;
+
+    transform: translateX(-50%);
+
+    background: #332014;
+}
+
+
+/* =========================================
+   GREEN DISPLAY
+========================================= */
+
+.frequency {
+    flex: 1;
+    min-width: 0;
+    height: 36px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 3px 5px;
+
+    border: 2px solid #242a1a;
+    border-radius: 2px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #11160f,
+            #202719 50%,
+            #131810
+        );
+
+    box-shadow:
+        inset 0 0 8px rgba(0,0,0,.95),
+        inset 0 1px rgba(133,150,93,.12);
+
+    font-family: "Courier New", monospace;
+}
+
+.bands {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.frequency::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: 1;
+
+    opacity: .12;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 2px,
+            #9ba66f 3px
+        );
+}
+
+
+/* =========================================
+   AM / FM
+========================================= */
+
+.band {
+    position: relative;
+
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+    align-items: flex-start;
+
+    z-index: 4;
+}
+
+.band + .band {
+    border-top: 1px solid rgba(155,166,111,.15);
+}
+
+.band-label {
+    width: 14px;
+
+    flex-shrink: 0;
+
+    padding-top: 0.5px;
+
+    color: #9da875;
+
+    font-size: 3.6px;
+    font-weight: bold;
+
+    text-shadow: 0 0 3px rgba(157,168,117,.5);
+}
+
+.scale {
+    flex: 1;
+    min-width: 0;
+
+    height: 7px;
+
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    color: #8f996d;
+
+    font-size: 2.8px;
+    line-height: 2.8px;
+
+    letter-spacing: -0.2px;
+
+    position: relative;
+    z-index: 6;
+
+    margin-top: 0;
+}
+
+.scale span {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.scale span:first-child {
+    text-align: left;
+}
+
+.scale span:last-child {
+    text-align: right;
+}
+
+
+/* =========================================
+   RADIO TICKS
+========================================= */
+
+.ticks {
+    position: absolute;
+
+    left: 14px;
+    right: 0;
+
+    top: 3.2px;
+
+    height: 3.5px;
+
+    z-index: 3;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    border-top: 1px solid rgba(122,138,90,.55);
+}
+
+.tick {
+    width: 1px;
+    height: 1.8px;
+
+    background: #78845c;
+
+    opacity: .6;
+}
+
+.tick.major {
+    height: 3.5px;
+
+    background: #b8c98a;
+
+    opacity: .9;
+
+    box-shadow: 0 0 2px rgba(184,201,138,.5);
+}
+
+.am-band .tick {
+    opacity: .42;
+}
+
+.am-band .tick.major {
+    opacity: .65;
+}
+
+
+/* =========================================
+   MOVING TUNER
+========================================= */
+
+.tuning-marker {
+    position: absolute;
+
+    top: 3px;
+    bottom: 1px;
+
+    left: 20%;
+
+    width: 1px;
+
+    z-index: 8;
+
+    background: #e2513a;
+
+    box-shadow:
+        0 0 3px rgba(226,81,58,.9),
+        0 0 7px rgba(226,81,58,.4);
+
+    animation:
+        tuningSlide 7s ease-in-out infinite alternate;
+}
+
+.tuning-marker::before {
+    content: "";
+
+    position: absolute;
+
+    top: -3px;
+    left: 50%;
+
+    width: 0;
+    height: 0;
+
+    transform: translateX(-50%);
+
+    border-left: 2.5px solid transparent;
+    border-right: 2.5px solid transparent;
+    border-top: 3px solid #e2513a;
+
+    filter: drop-shadow(0 0 2px rgba(226,81,58,.8));
+}
+
+@keyframes tuningSlide {
+
+    0% {
+        left: 12%;
+    }
+
+    25% {
+        left: 34%;
+    }
+
+    50% {
+        left: 58%;
+    }
+
+    75% {
+        left: 76%;
+    }
+
+    100% {
+        left: 91%;
+    }
+}
+
+
+/* =========================================
+   LCD GLOW
+========================================= */
+
+.frequency::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    width: 30px;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(154,170,103,.07),
+            transparent
+        );
+
+    animation:
+        lcdGlow 7s ease-in-out infinite alternate;
+}
+
+@keyframes lcdGlow {
+
+    0% {
+        left: 5%;
+    }
+
+    100% {
+        left: 88%;
+    }
+}
+
+
+/* =========================================
+   CONTROL PANEL
+========================================= */
+
+.control-panel {
+    flex-shrink: 0;
+
+    margin-top: 5px;
+    padding: 5px;
+
+    background:
+        linear-gradient(
+            #452719,
+            #251309
+        );
+
+    border: 2px solid #6d4626;
+    border-radius: 5px;
+
+    box-shadow:
+        inset 0 1px #8d5c36,
+        inset 0 -2px #100604;
+}
+
+
+/* =========================================
+   SOUND GRID
+========================================= */
+
+.sound-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 4px;
+}
+
+.channel {
+    min-width: 0;
+
+    padding: 3px;
+
+    background:
+        linear-gradient(
+            #56311d,
+            #321b10
+        );
+
+    border: 1px solid #714827;
+
+    border-radius: 3px;
+}
+
+
+/* =========================================
+   ICON BUTTONS
+========================================= */
+
+.channel button {
+    width: 100%;
+    height: 22px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border: 1px solid #896039;
+    border-radius: 3px;
+
+    background:
+        linear-gradient(
+            #68452c,
+            #3a2416
+        );
+
+    color: #b99a72;
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 1px rgba(255,225,190,.12),
+        0 2px #150803;
+
+    transition:
+        background .15s ease,
+        color .15s ease,
+        transform .08s ease;
+}
+
+.channel button svg {
+    width: 14px;
+    height: 14px;
+
+    display: block;
+
+    fill: currentColor;
+
+    stroke: currentColor;
+    stroke-width: 1.7;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    opacity: .9;
+
+    transition:
+        transform .15s ease,
+        opacity .15s ease;
+}
+
+.channel button:hover {
+    background:
+        linear-gradient(
+            #765036,
+            #442a1a
+        );
+
+    color: #d0b38c;
+}
+
+.channel button:hover svg {
+    transform: scale(1.08);
+}
+
+.channel button:active {
+    transform: translateY(1px);
+}
+
+.channel button.active {
+    background:
+        linear-gradient(
+            #493c27,
+            #2c2719
+        );
+
+    color: #b8c28d;
+
+    border-color: #68754b;
+}
+
+
+/* =========================================
+   VOLUME SLIDERS
+========================================= */
+
+.volume {
+    display: block;
+
+    width: 100%;
+    height: 8px;
+
+    margin-top: 2px;
+
+    accent-color: #80603d;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   SPOON
+========================================= */
+
+.spoon-icon {
+    width: 14px;
+    height: 14px;
+
+    display: block;
+
+    fill: currentColor;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .radio {
+        width: 96vw;
+        padding: 7px;
+
+        border-width: 2px;
+    }
+
+    .header {
+        height: 13px;
+        font-size: 5px;
+    }
+
+    .speaker-frame {
+        padding: 4px;
+    }
+
+    .tuner {
+        height: 38px;
+        padding: 3px 5px;
+    }
+
+    .knob {
+        width: 22px;
+        height: 22px;
+
+        flex-basis: 22px;
+    }
+
+    .frequency {
+        height: 30px;
+    }
+
+    .control-panel {
+        padding: 4px;
+    }
+
+    .channel {
+        padding: 2px;
+    }
+
+    .channel button {
+        height: 19px;
+    }
+
+    .channel button svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    .volume {
+        height: 7px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="radio">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <span>
+            LO-FI RADIO
+        </span>
+
+        <span class="power">
+
+            POWER
+
+            <span class="power-light"></span>
+
+        </span>
+
+    </div>
+
+
+    <!-- IMAGE + TUNER -->
+
+    <div class="speaker-frame">
+
+        <div class="speaker">
+
+            <div class="cafe-image"></div>
+
+        </div>
+
+
+        <!-- TUNER -->
+
+        <div class="tuner">
+
+            <div class="knob"></div>
+
+
+            <div class="frequency">
+
+                <!-- FM / AM DIAL -->
+
+                <div class="bands">
+
+                <!-- FM -->
+
+                <div class="band fm-band">
+
+                    <span class="band-label">
+                        FM
+                    </span>
+
+                    <div class="scale">
+
+                        <span>88</span>
+                        <span>92</span>
+                        <span>96</span>
+                        <span>100</span>
+                        <span>104</span>
+                        <span>108</span>
+
+                    </div>
+
+                    <div
+                        class="ticks"
+                        id="fmTicks">
+                    </div>
+
+                </div>
+
+
+                <!-- AM -->
+
+                <div class="band am-band">
+
+                    <span class="band-label">
+                        AM
+                    </span>
+
+                    <div class="scale">
+
+                        <span>54</span>
+                        <span>60</span>
+                        <span>70</span>
+                        <span>80</span>
+                        <span>100</span>
+                        <span>120</span>
+                        <span>140</span>
+                        <span>160</span>
+
+                    </div>
+
+                    <div
+                        class="ticks"
+                        id="amTicks">
+                    </div>
+
+                </div>
+
+
+                </div>
+
+
+                <div class="tuning-marker"></div>
+
+            </div>
+
+
+            <div class="knob"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SOUND CONTROLS -->
+
+    <div class="control-panel">
+
+        <div class="sound-grid">
+
+
+            <!-- MUSIC -->
+
+            <div class="channel">
+
+                <button
+                    onclick="toggleSound('music', this)"
+                    title="Music"
+                    aria-label="Music">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true">
+
+                        <!-- Single bold solid note -->
+
+                        <path
+                            d="
+                                M15 3
+                                V13.6
+                                A4.1 4.1 0 1 0 17 17.2
+                                V8
+                                H21
+                                V3
+                                Z
+                            "
+                            fill="currentColor"
+                            stroke="none"
+                        />
+
+                    </svg>
+
+                </button>
+
+                <input
+                    class="volume"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.35"
+                    aria-label="Music volume"
+                    oninput="
+                        changeVolume(
+                            'music',
+                            this.value
+                        )
+                    "
+                >
+
+            </div>
+
+
+            <!-- COFFEE -->
+
+            <div class="channel">
+
+                <button
+                    onclick="toggleSound('coffee', this)"
+                    title="Brewing Coffee"
+                    aria-label="Brewing Coffee">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true">
+
+                        <!-- Mug body -->
+
+                        <path
+                            d="
+                                M5 9
+                                H16
+                                V15
+                                A4 4 0 0 1 12 19
+                                H9
+                                A4 4 0 0 1 5 15
+                                Z
+                            "
+                            fill="none"
+                        />
+
+                        <!-- Handle -->
+
+                        <path
+                            d="
+                                M16 11
+                                H17.5
+                                A2.5 2.5 0 0 1 17.5 16
+                                H16
+                            "
+                            fill="none"
+                        />
+
+                        <!-- Steam -->
+
+                        <path
+                            d="
+                                M8.5 7.5
+                                C7.2 6.5 7.9 5.1 8.8 4
+                            "
+                            fill="none"
+                        />
+
+                        <path
+                            d="
+                                M12.5 7.5
+                                C11.2 6.5 11.9 5.1 12.8 4
+                            "
+                            fill="none"
+                        />
+
+                    </svg>
+
+                </button>
+
+                <input
+                    class="volume"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.50"
+                    aria-label="Coffee volume"
+                    oninput="
+                        changeVolume(
+                            'coffee',
+                            this.value
+                        )
+                    "
+                >
+
+            </div>
+
+
+            <!-- RAIN -->
+
+            <div class="channel">
+
+                <button
+                    onclick="toggleSound('rain', this)"
+                    title="Rain"
+                    aria-label="Rain">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true">
+
+                        <!-- Cloud -->
+
+                        <path
+                            d="
+                                M6 15.5
+                                C3.8 15.5 2.5 13.7 3 11.7
+                                C3.4 10.1 4.9 9 6.5 9.1
+                                C7 6.7 9.6 5 12.5 5.6
+                                C14.8 6.1 16.4 8.1 16.4 10.3
+                                C18.4 10.4 20 12 20 14
+                                C20 16 18.4 17 16.4 17
+                                H6
+                                Z
+                            "
+                            fill="none"
+                        />
+
+                        <!-- Raindrops -->
+
+                        <path
+                            d="
+                                M6.5 18.2
+                                C6.5 18.2 5 20.3 5 21.3
+                                A1.5 1.5 0 0 0 8 21.3
+                                C8 20.3 6.5 18.2 6.5 18.2
+                                Z
+                            "
+                            fill="currentColor"
+                            stroke="none"
+                        />
+
+                        <path
+                            d="
+                                M12 19.4
+                                C12 19.4 10.5 21.5 10.5 22.5
+                                A1.5 1.5 0 0 0 13.5 22.5
+                                C13.5 21.5 12 19.4 12 19.4
+                                Z
+                            "
+                            fill="currentColor"
+                            stroke="none"
+                        />
+
+                        <path
+                            d="
+                                M17.5 18.2
+                                C17.5 18.2 16 20.3 16 21.3
+                                A1.5 1.5 0 0 0 19 21.3
+                                C19 20.3 17.5 18.2 17.5 18.2
+                                Z
+                            "
+                            fill="currentColor"
+                            stroke="none"
+                        />
+
+                    </svg>
+
+                </button>
+
+                <input
+                    class="volume"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.40"
+                    aria-label="Rain volume"
+                    oninput="
+                        changeVolume(
+                            'rain',
+                            this.value
+                        )
+                    "
+                >
+
+            </div>
+
+
+            <!-- CONVERSATIONS -->
+
+            <div class="channel">
+
+                <button
+                    onclick="toggleSound('conversation', this)"
+                    title="Conversations"
+                    aria-label="Conversations">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true">
+
+                        <!-- Speech bubble -->
+
+                        <path
+                            d="
+                                M5 4.5
+                                H19
+                                A2.5 2.5 0 0 1 21.5 7
+                                V14
+                                A2.5 2.5 0 0 1 19 16.5
+                                H10.5
+                                L6 20
+                                V16.5
+                                H5
+                                A2.5 2.5 0 0 1 2.5 14
+                                V7
+                                A2.5 2.5 0 0 1 5 4.5
+                                Z
+                            "
+                            fill="none"
+                        />
+
+                        <!-- Three dots -->
+
+                        <circle
+                            cx="8"
+                            cy="10.5"
+                            r="1"
+                            stroke="none"
+                        />
+
+                        <circle
+                            cx="12"
+                            cy="10.5"
+                            r="1"
+                            stroke="none"
+                        />
+
+                        <circle
+                            cx="16"
+                            cy="10.5"
+                            r="1"
+                            stroke="none"
+                        />
+
+                    </svg>
+
+                </button>
+
+                <input
+                    class="volume"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.25"
+                    aria-label="Conversation volume"
+                    oninput="
+                        changeVolume(
+                            'conversation',
+                            this.value
+                        )
+                    "
+                >
+
+            </div>
+
+
+            <!-- STIRRING -->
+
+            <div class="channel">
+
+                <button
+                    onclick="toggleSound('stirring', this)"
+                    title="Stirring"
+                    aria-label="Stirring">
+
+                    <!-- Spoon: oval bowl + straight handle -->
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                        class="spoon-icon">
+
+                        <g transform="rotate(30 12 12)">
+
+                            <ellipse
+                                cx="12"
+                                cy="6"
+                                rx="3.4"
+                                ry="4.6"
+                                fill="currentColor"
+                                stroke="none"
+                            />
+
+                            <rect
+                                x="10.7"
+                                y="10.2"
+                                width="2.6"
+                                height="11.3"
+                                rx="1.3"
+                                fill="currentColor"
+                                stroke="none"
+                            />
+
+                        </g>
+
+                    </svg>
+
+                </button>
+
+                <input
+                    class="volume"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.30"
+                    aria-label="Stirring volume"
+                    oninput="
+                        changeVolume(
+                            'stirring',
+                            this.value
+                        )
+                    "
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     AUDIO FILES
+========================================= -->
+
+<audio
+    id="music"
+    loop
+    preload="auto">
+
+    <source
+        src="https://github.com/ameerhadaelo-design/Notion-music-widget/raw/refs/heads/main/quiet-motif-piano-coffee-shop-lo-fi-SBA-346967624-preview%20(1).mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+<audio
+    id="coffee"
+    loop
+    preload="auto">
+
+    <source
+        src="https://github.com/ameerhadaelo-design/Notion-music-widget/raw/refs/heads/main/733329__panflutist__coffee-brewing%20(1).wav"
+        type="audio/wav">
+
+</audio>
+
+
+<audio
+    id="rain"
+    loop
+    preload="auto">
+
+    <source
+        src="https://github.com/ameerhadaelo-design/Notion-music-widget/raw/refs/heads/main/751966__pauliepaulpaul__city-rain-01%20(1).wav"
+        type="audio/wav">
+
+</audio>
+
+
+<audio
+    id="conversation"
+    loop
+    preload="auto">
+
+    <source
+        src="https://github.com/ameerhadaelo-design/Notion-music-widget/raw/refs/heads/main/486471__tkky__cafe-amb-03.wav"
+        type="audio/wav">
+
+</audio>
+
+
+<audio
+    id="stirring"
+    loop
+    preload="auto">
+
+    <source
+        src="https://github.com/ameerhadaelo-design/Notion-music-widget/raw/refs/heads/main/437491__biancabothapure__stirring-tea-cup.wav"
+        type="audio/wav">
+
+</audio>
+
+
+<script>
+
+/* =========================================
+   CREATE TUNER TICKS
+========================================= */
+
+function createTicks(
+    elementId,
+    count,
+    majorInterval
+) {
+
+    const container =
+        document.getElementById(
+            elementId
+        );
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const tick =
+            document.createElement(
+                "span"
+            );
+
+        tick.classList.add(
+            "tick"
+        );
+
+        if (i % majorInterval === 0) {
+
+            tick.classList.add(
+                "major"
+            );
+
+        }
+
+        container.appendChild(
+            tick
+        );
+
+    }
+
+}
+
+
+/*
+   FM has 6 labels (88-108), so
+   40 ticks split into 5 equal
+   sections puts a major tick
+   exactly under every label.
+*/
+
+createTicks(
+    "fmTicks",
+    41,
+    8
+);
+
+
+/*
+   AM has 8 labels, so 70 ticks
+   split into 7 equal sections
+   puts a major tick exactly
+   under every label.
+*/
+
+createTicks(
+    "amTicks",
+    71,
+    10
+);
+
+
+/* =========================================
+   AUDIO
+========================================= */
+
+const sounds = {
+
+    music:
+        document.getElementById(
+            "music"
+        ),
+
+    coffee:
+        document.getElementById(
+            "coffee"
+        ),
+
+    rain:
+        document.getElementById(
+            "rain"
+        ),
+
+    conversation:
+        document.getElementById(
+            "conversation"
+        ),
+
+    stirring:
+        document.getElementById(
+            "stirring"
+        )
+
+};
+
+
+/* =========================================
+   DEFAULT VOLUMES
+========================================= */
+
+sounds.music.volume = 0.35;
+sounds.coffee.volume = 0.50;
+sounds.rain.volume = 0.40;
+sounds.conversation.volume = 0.25;
+sounds.stirring.volume = 0.30;
+
+
+/* =========================================
+   PLAY / PAUSE
+========================================= */
+
+function toggleSound(
+    name,
+    button
+) {
+
+    const audio =
+        sounds[name];
+
+    if (!audio) {
+        return;
+    }
+
+
+    if (audio.paused) {
+
+        audio
+            .play()
+            .then(() => {
+
+                button.classList.add(
+                    "active"
+                );
+
+            })
+            .catch(() => {
+
+                console.log(
+                    "Browser blocked audio playback:",
+                    name
+                );
+
+            });
+
+    } else {
+
+        audio.pause();
+
+        button.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   INDIVIDUAL VOLUME
+========================================= */
+
+function changeVolume(
+    name,
+    value
+) {
+
+    if (!sounds[name]) {
+        return;
+    }
+
+    sounds[name].volume =
+        Number(value);
+
+}
+
+</script>
+
+</body>
+</html>
